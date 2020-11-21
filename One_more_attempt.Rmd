@@ -1,11 +1,16 @@
 ---
 title: "One_more_attempt"
+knit: (function(input_file, encoding) {
+  out_dir <- 'docs';
+  rmarkdown::render(input_file,
+ encoding=encoding,
+ output_file=file.path(dirname(input_file), out_dir, 'index.html'))})
 author: "Tommy"
 date: "21/11/2020"
 output: html_document
 ---
 
-```{r}
+```{r, include=FALSE}
 library(dplyr)
 library(leaflet)
 library(rgdal)
@@ -29,7 +34,11 @@ pal <- colorNumeric("Greens", domain=shapes_funding_merge$PerPerson)
 
 popup2 <- paste0("<strong>", shapes_funding_merge$lad19nm, 
                  "</strong><br />Per-head funding: £", as.character(shapes_funding_merge$PerPerson))
+```
 
+
+
+```{r echo=FALSE}
 leaflet() %>%
   addProviderTiles("CartoDB.Positron") %>%
   setView(-2, 55, zoom = 5) %>% 
